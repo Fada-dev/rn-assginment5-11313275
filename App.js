@@ -1,7 +1,8 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Image, StyleSheet } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { ThemeProvider, ThemeContext } from './ThemeContext';  // Import the ThemeProvider
 
 import HomeScreen from './HomeScreen';
 import MyCardsScreen from './MyCardsScreen';
@@ -12,50 +13,72 @@ const Tab = createBottomTabNavigator();
 
 const App = () => {
   return (
-    <NavigationContainer style={styles.NavContainer}>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconSource;
+    <ThemeProvider>
+      <ThemeContext.Consumer>
+        {({ darkMode }) => (
+          <NavigationContainer theme={darkMode ? darkTheme : lightTheme}>
+            <Tab.Navigator
+              screenOptions={({ route }) => ({
+                tabBarIcon: ({ focused, color, size }) => {
+                  let iconName;
 
-            switch (route.name) {
-              case 'Home':
-                iconSource = focused ? require('./assets/home.png') : require('./assets/home.png');
-                break;
-              case 'My Cards':
-                iconSource = focused ? require('./assets/myCards.png') : require('./assets/myCards.png');
-                break;
-              case 'Statistics':
-                iconSource = focused ? require('./assets/statictics.png') : require('./assets/statictics.png');
-                break;
-              case 'Settings':
-                iconSource = focused ? require('./assets/settings.png') : require('./assets/settings.png');
-                break;
-              default:
-                break;
-            }
+                  switch (route.name) {
+                    case 'Home':
+                      iconName = focused ? 'home' : 'home-outline';
+                      break;
+                    case 'My Cards':
+                      iconName = focused ? 'card' : 'card-outline';
+                      break;
+                    case 'Statistics':
+                      iconName = focused ? 'stats-chart' : 'stats-chart-outline';
+                      break;
+                    case 'Settings':
+                      iconName = focused ? 'settings' : 'settings-outline';
+                      break;
+                  }
 
-            return <Image source={iconSource} style={{ width: size, height: size, tintColor: color }} />;
-          },
-        })}
-        tabBarOptions={{
-          activeTintColor: 'blue',
-          inactiveTintColor: 'gray',
-        }}
-      >
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="My Cards" component={MyCardsScreen} />
-        <Tab.Screen name="Statistics" component={StatisticsScreen} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
+                  return <Ionicons name={iconName} size={size} color={color} />;
+                },
+              })}
+              tabBarOptions={{
+                activeTintColor: 'blue',
+                inactiveTintColor: 'gray',
+              }}
+            >
+              <Tab.Screen name="Home" component={HomeScreen} />
+              <Tab.Screen name="My Cards" component={MyCardsScreen} />
+              <Tab.Screen name="Statistics" component={StatisticsScreen} />
+              <Tab.Screen name="Settings" component={SettingsScreen} />
+            </Tab.Navigator>
+          </NavigationContainer>
+        )}
+      </ThemeContext.Consumer>
+    </ThemeProvider>
   );
 };
 
-const styles = StyleSheet.create({
-  NavContainer: {
-    marginBottom: 50,
+const darkTheme = {
+  dark: true,
+  colors: {
+    primary: 'white',
+    background: 'black',
+    card: 'gray',
+    text: 'white',
+    border: 'gray',
+    notification: 'gray',
   },
-});
+};
+
+const lightTheme = {
+  dark: false,
+  colors: {
+    primary: 'black',
+    background: 'white',
+    card: 'white',
+    text: 'black',
+    border: 'gray',
+    notification: 'gray',
+  },
+};
 
 export default App;

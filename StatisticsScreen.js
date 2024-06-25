@@ -13,6 +13,7 @@ const StatisticsScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  // Add your styles here
 });
 
 export default StatisticsScreen;

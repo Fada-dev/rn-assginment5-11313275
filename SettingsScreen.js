@@ -1,38 +1,40 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet, ScrollView, Switch, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { ThemeContext } from './ThemeContext';
 
 const SettingsScreen = () => {
-  const [darkMode, setDarkMode] = useState(false);
+  const { darkMode, toggleTheme } = useContext(ThemeContext);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: darkMode ? '#000' : '#fff' }]}>
       <ScrollView style={styles.settingsContainer}>
+        <Text style={[styles.headerText, { color: darkMode ? '#fff' : '#000' }]}>Settings</Text>
         <TouchableOpacity style={styles.settingItem}>
-          <Text style={styles.settingTitle}>Language</Text>
+          <Text style={[styles.settingTitle, { color: darkMode ? '#fff' : '#000' }]}>Language</Text>
           <Ionicons name="chevron-forward" size={24} color="gray" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.settingItem}>
-          <Text style={styles.settingTitle}>My Profile</Text>
+          <Text style={[styles.settingTitle, { color: darkMode ? '#fff' : '#000' }]}>My Profile</Text>
           <Ionicons name="chevron-forward" size={24} color="gray" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.settingItem}>
-          <Text style={styles.settingTitle}>Contact Us</Text>
+          <Text style={[styles.settingTitle, { color: darkMode ? '#fff' : '#000' }]}>Contact Us</Text>
           <Ionicons name="chevron-forward" size={24} color="gray" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.settingItem}>
-          <Text style={styles.settingTitle}>Change Password</Text>
+          <Text style={[styles.settingTitle, { color: darkMode ? '#fff' : '#000' }]}>Change Password</Text>
           <Ionicons name="chevron-forward" size={24} color="gray" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.settingItem}>
-          <Text style={styles.settingTitle}>Privacy Policy</Text>
+          <Text style={[styles.settingTitle, { color: darkMode ? '#fff' : '#000' }]}>Privacy Policy</Text>
           <Ionicons name="chevron-forward" size={24} color="gray" />
         </TouchableOpacity>
         <View style={styles.settingItem}>
-          <Text style={styles.settingTitle}>Theme</Text>
+          <Text style={[styles.settingTitle, { color: darkMode ? '#fff' : '#000' }]}>Theme</Text>
           <Switch
             value={darkMode}
-            onValueChange={(value) => setDarkMode(value)}
+            onValueChange={toggleTheme}
             trackColor={{ false: '#767577', true: '#81b0ff' }}
             thumbColor={darkMode ? '#f5dd4b' : '#f4f3f4'}
           />
@@ -45,7 +47,6 @@ const SettingsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     paddingHorizontal: 20,
   },
   headerText: {
