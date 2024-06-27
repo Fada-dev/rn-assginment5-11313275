@@ -30,7 +30,9 @@ const SettingsScreen = () => {
           <Text style={[styles.settingTitle, { color: darkMode ? '#fff' : '#000' }]}>Privacy Policy</Text>
           <Ionicons name="chevron-forward" size={24} color="gray" />
         </TouchableOpacity>
-        <View style={styles.settingItem}>
+        
+      </ScrollView>
+      <View style={styles.settingItemTheme}>
           <Text style={[styles.settingTitle, { color: darkMode ? '#fff' : '#000' }]}>Theme</Text>
           <Switch
             value={darkMode}
@@ -39,7 +41,6 @@ const SettingsScreen = () => {
             thumbColor={darkMode ? '#f5dd4b' : '#f4f3f4'}
           />
         </View>
-      </ScrollView>
     </View>
   );
 };
@@ -62,9 +63,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#f1f1f1',
+    paddingVertical: 20,
+    borderBottomWidth: 2,
+    borderBottomColor: 'rgba(45, 40, 73, 0.301)',
+  },
+  settingItemTheme: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    top: -110
   },
   settingTitle: {
     fontSize: 16,
