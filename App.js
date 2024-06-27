@@ -1,13 +1,13 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { ThemeProvider, ThemeContext } from './ThemeContext';  // Import the ThemeProvider
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Image } from "react-native";
+import { ThemeProvider, ThemeContext } from "./ThemeContext";
 
-import HomeScreen from './HomeScreen';
-import MyCardsScreen from './MyCardsScreen';
-import StatisticsScreen from './StatisticsScreen';
-import SettingsScreen from './SettingsScreen';
+import HomeScreen from "./HomeScreen";
+import MyCardsScreen from "./MyCardsScreen";
+import StatisticsScreen from "./StatisticsScreen";
+import SettingsScreen from "./SettingsScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -20,30 +20,33 @@ const App = () => {
             <Tab.Navigator
               screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
-                  let iconName;
+                  let iconSource;
 
                   switch (route.name) {
                     case 'Home':
-                      iconName = focused ? 'home' : 'home-outline';
+                      iconSource = require('./assets/home.png');
                       break;
                     case 'My Cards':
-                      iconName = focused ? 'card' : 'card-outline';
+                      iconSource = require('./assets/myCards.png');
                       break;
                     case 'Statistics':
-                      iconName = focused ? 'stats-chart' : 'stats-chart-outline';
+                      iconSource = require('./assets/statistics.png');
                       break;
                     case 'Settings':
-                      iconName = focused ? 'settings' : 'settings-outline';
+                      iconSource = require('./assets/settings.png');
+                      break;
+                    default:
                       break;
                   }
 
-                  return <Ionicons name={iconName} size={size} color={color} />;
+                  return <Image source={iconSource} style={{ width: size, height: size, tintColor: color }} />;
+                },
+                tabBarActiveTintColor: darkMode ? 'white' : 'blue',
+                tabBarInactiveTintColor: 'gray',
+                tabBarStyle: {
+                  backgroundColor: darkMode ? 'black' : 'white',
                 },
               })}
-              tabBarOptions={{
-                activeTintColor: 'blue',
-                inactiveTintColor: 'gray',
-              }}
             >
               <Tab.Screen name="Home" component={HomeScreen} />
               <Tab.Screen name="My Cards" component={MyCardsScreen} />
@@ -60,24 +63,24 @@ const App = () => {
 const darkTheme = {
   dark: true,
   colors: {
-    primary: 'white',
-    background: 'black',
-    card: 'gray',
-    text: 'white',
-    border: 'gray',
-    notification: 'gray',
+    primary: "white",
+    background: "black",
+    card: "gray",
+    text: "white",
+    border: "gray",
+    notification: "gray",
   },
 };
 
 const lightTheme = {
   dark: false,
   colors: {
-    primary: 'black',
-    background: 'white',
-    card: 'white',
-    text: 'black',
-    border: 'gray',
-    notification: 'gray',
+    primary: "black",
+    background: "white",
+    card: "white",
+    text: "black",
+    border: "gray",
+    notification: "gray",
   },
 };
 

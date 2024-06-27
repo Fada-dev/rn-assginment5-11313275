@@ -7,7 +7,7 @@ const SettingsScreen = () => {
   const { darkMode, toggleTheme } = useContext(ThemeContext);
 
   return (
-    <View style={[styles.container, { backgroundColor: darkMode ? '#000' : '#fff' }]}>
+    <View style={[styles.container, { backgroundColor: darkMode ? '#101930' : '#fff' }]}>
       <ScrollView style={styles.settingsContainer}>
         <Text style={[styles.headerText, { color: darkMode ? '#fff' : '#000' }]}>Settings</Text>
         <TouchableOpacity style={styles.settingItem}>
